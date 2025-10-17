@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            position: relative;
+            width: 15%;
+        }
+
+        .image{
+            border-radius: 50%;
+            display: block;
+            width: 100%;
+            height: auto;
+            
+            transition: 1.9s ease;
+
+        }
+
+        .image:hover {
+            filter: blur(8px);
+        }
+
+        .overlay{
+            border-radius: 50%;
+            position: absolute;
+            opacity: 0;
+            justify-self:center;
+            transition: 1.9s ease;
+        }
+
+        .container:hover .overlay{
+            opacity: 1;
+        }
+
+        .text{
+            color: #035874;
+            font-size: 20px;
+            position: relative;
+            top: 90%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+            transition: 1.9s ease;
+        }
+    </style>
+</head>
+<body>
+    <h2>Fade in overlay</h2>
+    <p>Hover over the image to see the effect</p>
+
+    <div class="container">
+        <img src="watermelon.jpg" alt="potator" class="image">
+        <div class="overlay">
+            <div class="text">watermelon</div>
+        </div>
+    </div>
+</body>
+</html>

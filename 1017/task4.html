@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+    <style>
+        .schedule {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            width: 70%;
+            border-collapse: separate; /* 允許 cell spacing */
+            border-spacing: 2px; /* 控制 cell spacing */
+        }
+
+        .schedule th {
+            background-color: #444;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .schedule td {
+            padding: 8px; /* cell padding */
+            text-align: center;
+            border: 1px solid #ddd; /* 細邊框 */
+        }
+
+        .schedule .time {
+            background-color: #cdc9c9;
+            color: white;
+            font-weight: bold;
+            vertical-align: top; /* 時間靠上對齊 */
+        }
+
+        .schedule .time2 {
+            background-color: #a4a0a0;
+            color: white;
+            font-weight: bold;
+            vertical-align: top; /* 時間靠上對齊 */
+
+        }
+
+
+        .schedule .business {
+            background-color: #e6f3da; /* Business 淺綠色 */
+        }
+
+        .schedule .physics {
+            background-color: #ffdab9; /* Physics 橙色 */
+        }
+
+        .schedule .applied-math {
+            background-color: #bfe4f6; /* Applied Math 淺橙色 */
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Task2</h2>
+    <table class="schedule">
+        <tr>
+            <th></th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+        </tr>
+        <tr>
+            <td class="time2">7:30 AM</td>
+            <td class=time2>Breakfast</td>
+            <td class=time2>Breakfast</td>
+            <td class=time2>Breakfast</td>
+        </tr>
+        <tr>
+            <td class="time" >8:00 AM</td>
+            <td class="business" rowspan="2">Business: Lecture<br>Bldg B, Rm 256</td>
+            <td class="physics" rowspan="3">Physics: Lab<br>Bldg J, Rm 309</td>
+            <td class="business" rowspan="2">Business: Lecture<br>Bldg B, Rm 256</td>
+        </tr>
+        <tr>
+            <td class="time2">8:30 AM</td>
+        </tr>
+        <tr>
+            <td class="time">9:00 AM</td>
+            <td class="applied-math" rowspan="2">Applied Math<br>Bldg H, Rm 100</td>
+            <td class="applied-math" rowspan="2">Applied Math<br>Bldg H, Rm 100</td>
+        </tr>
+        <tr>
+            <td class="time2">9:30 AM</td>
+            <td class="time2"></td>
+        </tr>
+        <tr>
+            <td class="time">10:00 AM</td>
+            <td class="time"></td>
+            <td class="time"></td>
+            <td class="time"></td>
+        </tr>
+        <tr>
+            <td class="time2">10:30 AM</td>
+            <td class="time2"></td>
+            <td class="time2"></td>
+            <td class="time2"></td>
+        </tr>
+        <tr>
+            <td class="time">11:00 AM</td>
+            <td class="time"></td>
+            <td class="time"></td>
+            <td class="time"></td>
+        </tr>
+        <tr>
+            <td class="time2">11:30 AM</td>
+            <td class="time2"></td>
+            <td class="time2"></td>
+            <td class="time2"></td>
+        </tr>
+    </table>
+</body>
+</html>
