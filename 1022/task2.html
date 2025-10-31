@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+    
+        function times(){
+            let text = ''
+            for(i=1;i <= 9; i++){
+                text +='<tr>'
+                for(j=2;j <= 9; j++){
+                    text += `     <td> ${j}x${i}=${i*j}     </td>`
+                } 
+                text += '</tr>'
+                text += '<br>'
+
+                document.getElementById("arow").innerHTML = text
+            }
+        }
+    </script>
+
+    <style>
+        .gap {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table class="gap">
+        <button onclick="times()">產生99</button>
+        <tbody id="arow"></tbody>
+    </table>
+</body>
+</html>

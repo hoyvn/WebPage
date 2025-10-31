@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #scoretable {
+            width: 200px;
+            text-align: center;
+            border: 1px black solid;
+            border-collapse: separate;
+            border-spacing: 2px;
+        }
+
+        #scoretable th {
+            background-color: rgb(42, 124, 169);
+            color: aliceblue;
+            padding: 10px 10px 10px 10px;
+            border: 2px solid #333;
+        }
+
+        #scoretable td {
+            background-color: rgb(222, 222, 140);
+            padding: 10px 10px 10px 10px;
+            border: 2px solid #333;
+        }
+
+        .g{
+            background-color: rgb(135, 186, 135);
+            width: 40px;
+            height: 18px;
+        }
+        .b{
+            background-color: rgb(142, 193, 197);
+            width: 40px;
+            height: 18px;
+        }
+        .p{
+            background-color: rgb(189, 137, 180);
+            width: 40px;
+            height: 18px;
+        }
+        .o{
+            background-color: rgb(219, 199, 120);
+            width: 40px;
+            height: 18px;
+        }
+    
+    </style>
+</head>
+
+    
+
+<body>
+    <table id="scoretable">
+        <thead>
+            <tr>
+                <th>Math</th>
+                <th>English</th>
+                <th>Programming</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>90</td>
+                <td>60</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>86</td>
+                <td>98</td>
+            </tr>
+        </tbody>    
+    </table> <br>
+
+    <div>
+        Change The Table width <br>
+        <button id ='w200'>200px</button>
+         <button id="w500">500px</button>
+    </div><br>
+    <div>
+        Change The Border and the Spacing width <br>
+         <button class="bd">1px</button>
+         <button class="bd">10px</button>
+         <button class="bd">20px</button>
+    </div><br>
+    <div>
+        Change The Table color<br>
+        <button class="g"></button>
+         <button class="b"></button>
+         <button class="p"></button>
+         <button class="o"></button>
+    </div> <br>
+
+    <div>
+        <button id="reset">Reset</button>
+    </div>
+    
+    <script src="task.js"></script>
+</body>
+</html>
