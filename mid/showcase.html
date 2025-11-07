@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Showcase - entire studios</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- 導航列佔位符 -->
+<div id="navbar-placeholder"></div>
+
+<div class="layout">
+
+	<main class="content">
+
+		<!-- Table Styler Component -->
+		<section class="table-styler">
+			<h3>MENU</h3>
+			<p style="margin-bottom: 20px; color: #666;">
+					Choose the Size & Flavor YOU WANT!!!
+			</p>
+
+			<div class="controls">
+				<label>
+					Table Width:
+					<select id="widthSelect">
+						<option value="">Default</option>
+						<option value="200px">Compact (200px)</option>
+						<option value="500px">Standard (500px)</option>
+					</select>
+				</label>
+
+				<label>
+					Border & Spacing:
+					<select id="spacingSelect">
+						<option value="">Default</option>
+						<option value="1">Minimal (1px)</option>
+						<option value="10">Medium (10px)</option>
+						<option value="20">Large (20px)</option>
+					</select>
+				</label>
+
+				<label>
+					Background Color:
+					<input type="color" id="tableColor" value="#ffffff" />
+				</label>
+
+				<button id="resetTable">Reset Table</button>
+			</div>
+
+			<table id="statsTable">
+				<thead>
+				<tr>
+					<th>Size\Flavor</th>
+					<th>Brown Sugar Milk</th>
+					<th>Choco Mojo</th>
+					<th>Strawberry</th>
+					<th>Matcha</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>4oz</td>
+					<td>150$</td>
+					<td>160$</td>
+					<td>180$</td>
+					<td>175$</td>
+				</tr>
+				<tr>
+					<td>6oz</td>
+					<td>190$</td>
+					<td>210$</td>
+					<td>230$</td>
+					<td>220$</td>
+				</tr>
+				<tr>
+					<td>8oz</td>
+					<td>230$</td>
+					<td>250$</td>
+					<td>90$</td>
+					<td>270$</td>
+				</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<!-- Polaroid Image Switcher Component -->
+		<section class="polaroid-switcher">
+
+			<div class="polaroid-frame">
+				<img id="polaroidImage"
+					 src="https://img.tagsis.com/202211/109531.jpeg"
+					 alt="PFD Puffer Jacket View" />
+			</div>
+
+			<div class="polaroid-caption">
+				<div id="polaroidCounter">Image 1 of 5</div>
+				<div id="polaroidText" class="caption-text">Front View — Oversized Fit</div>
+			</div>
+
+			<div class="polaroid-controls">
+				<button id="prevBtn">Previous</button>
+				<button id="nextBtn">Next</button>
+			</div>
+		</section>
+	</main>
+</div>
+
+<!-- 頁尾佔位符 -->
+<div id="footer-placeholder"></div>
+
+<script src="components.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

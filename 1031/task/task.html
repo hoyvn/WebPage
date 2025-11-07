@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Moonlight City</title>
+  <style>
+    body {
+      background-color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: "Arial", sans-serif;
+      color: white;
+    }
+    canvas {
+      border: 1px solid #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>MOONLIGHT CITY</h2>
+  <small>Canvas 2D - City Skyline</small>
+
+  <canvas id="cityCanvas" width="500" height="300"></canvas>
+
+  <script>
+    const canvas = document.getElementById("cityCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // === 1. Sky background ===
+    const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    sky.addColorStop(0, "#0a1a3a"); // dark blue
+    sky.addColorStop(1, "#031027"); // deeper navy
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // === 2. Ground area ===
+    ctx.fillStyle = "#081a25";
+    ctx.fillRect(0, 250, canvas.width, 50);
+
+    // === 3. Moon ===
+    ctx.beginPath();
+    ctx.arc(400, 75, 46, 0, Math.PI * 2);
+    ctx.fillStyle = "#f5f3c4"; // 淡黃色
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(404, 71, 42, 0, Math.PI * 2); // x, y, 半徑, 起始角, 結束角
+    ctx.fillStyle = "gray"; // 填滿顏色
+    ctx.fill();
+    ctx.closePath();
+
+
+    // === 4. Buildings ===
+    const buildingColors = ["#425873", "#3a5169", "#32495f", "#2c4256", "#263c4f"];
+    const buildings = [
+      {x: 50, y: 160, w: 60, h: 90},
+      {x: 120, y: 140, w: 70, h: 110},
+      {x: 210, y: 120, w: 80, h: 130},
+      {x: 310, y: 150, w: 60, h: 100},
+      {x: 380, y: 110, w: 70, h:140}
+    ];
+
+    buildings.forEach((b, i) => {
+      ctx.fillStyle = buildingColors[i % buildingColors.length];
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+    });
+
+
+    // === 5. Windows ===
+    ctx.fillStyle = "#ffeb8a";
+    // Building 3
+    ctx.fillRect(230, 150, 10, 10);
+    ctx.fillRect(250, 180, 10, 10);
+    // Building 4
+    // Building 5
+    ctx.fillRect(390, 130, 10, 10);
+    ctx.fillRect(420, 150, 10, 10);
+
+    // === 6. Stars ===
+    ctx.fillStyle = "white";
+    for (let i = 0; i < 10; i++) {  
+      let x = Math.random() * canvas.width/1.5;
+      let y = Math.random() * 100;
+      ctx.beginPath();
+      ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+  </script>
+</body>
+</html>
