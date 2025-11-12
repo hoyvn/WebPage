@@ -136,11 +136,6 @@ function initPolaroidSwitcher() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    // 如果元素不存在（不在 showcase 頁面），直接返回
-    if (!polaroidImage || !polaroidCounter || !polaroidText || !prevBtn || !nextBtn) {
-        return;
-    }
-
     /**
      * 更新圖片顯示
      */

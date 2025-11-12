@@ -22,10 +22,6 @@
 
 body {
     font-family: 'spacemono', monospace;
-    font-weight: 300;
-    background-color: #ffffff;
-    color: #000000;
-    line-height: 1.6;
 }
 
 /* Navigation Bar - 極簡黑色 */
@@ -44,10 +40,6 @@ body {
     display: flex;
     gap: 40px;
     justify-content: center;
-}
-
-.navbar li {
-    display: inline;
 }
 
 .navbar a {

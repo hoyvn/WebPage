@@ -44,7 +44,7 @@ function generateSidebar(showOverlay = true) {
       <div class="intro">
         <h1>Ice Cream</h1>
         <p>Est. 2003 | dali</p>
-        <p>Email: <a href="mailto:info@entirestudios.com">info@entirestudios.com</a></p>
+        <p>Email: <a href="https://www.bing.com/search?pglt=299&q=%E8%91%B3%E8%91%B3%E5%A4%A2%E5%A4%A2&cvid=72937b9abfdc4eaca905a5a80bad530e&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhA0gEINTQ0OGowajGoAgCwAgA&FORM=ANNTA1&ucpdpc=UCPD&PC=U531">StrawberryCake.com</a></p>
         <p>Website: <a href="https://www.coldstone.com.tw/" target="_blank">sofuckinggood.com</a></p>
       </div>
     </aside>
@@ -91,24 +91,9 @@ function initComponents(options = {}) {
         }
     }
 
-    // 高亮當前頁面
-    highlightCurrentPage();
 }
 
-/**
- * 自動為當前頁面的導航連結添加 active class
- */
-function highlightCurrentPage() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.navbar a');
 
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
-    });
-}
 
 // 當 DOM 載入完成後自動初始化
 document.addEventListener('DOMContentLoaded', function() {
