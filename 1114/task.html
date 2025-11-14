@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L 形物件 - Canvas 繪製</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="lShapeCanvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('lShapeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 設定單位大小 (每個單位 = 50 像素，方便觀看)
+        const unit = 50;
+
+        // 尺寸
+        const height = 4 * unit;  // 垂直長度
+        const width = 2 * unit;   // 水平長度
+        const thickness = 1 * unit; // 厚度
+
+        // 繪製 L 形 (紅色填充)
+        ctx.fillStyle = 'red';
+
+        // 開始路徑
+        ctx.beginPath();
+
+        // 左下角開始
+        const startX = 100;
+        const startY = canvas.height - 100;
+
+        // 垂直
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(startX + thickness, startY);
+        ctx.lineTo(startX + thickness, startY - height);
+        ctx.lineTo(startX, startY - height);
+        ctx.closePath();
+        ctx.fill();
+
+        // 水平
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(startX + width, startY);
+        ctx.lineTo(startX + width, startY - thickness);
+        ctx.lineTo(startX, startY - thickness);
+        ctx.closePath();
+        ctx.fill();
+
+    </script>
+
+</body>
+</html>

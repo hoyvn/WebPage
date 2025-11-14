@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>一圈一秒時鐘</title>
+  <style>
+    body {
+      margin: 0; padding: 20px; background: #f0f0f0;
+      font-family: Arial; display: flex; justify-content: center; align-items: center;
+      min-height: 100vh;
+    }
+    canvas {
+      border: 12px solid #333; border-radius: 50%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="clock" width="460" height="460"></canvas>
+
+<script>
+  const canvas = document.getElementById('clock');
+  const ctx = canvas.getContext('2d');
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = 190;
+  const roman = ['XII','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'];
+
+  function drawHand(angle, len, w, color, thin=false) {
+    const ex = centerX + len * Math.sin(angle);
+    const ey = centerY - len * Math.cos(angle);
+    ctx.fillStyle = color;
+    if (thin) {
+      ctx.strokeStyle = color; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(centerX, centerY); ctx.lineTo(ex, ey); ctx.stroke();
+    } else {
+      const hw = w/2, p = angle + Math.PI/2;
+      const ax = centerX + hw*Math.sin(p), ay = centerY - hw*Math.cos(p);
+      const bx = centerX - hw*Math.sin(p), by = centerY + hw*Math.cos(p);
+      ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(ex,ey); ctx.lineTo(bx,by); ctx.closePath(); ctx.fill();
+    }
+  }
+
+  function drawClock() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // 漸層
+    const g = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius+30);
+    g.addColorStop(0, '#e1bee7'); g.addColorStop(1, '#9c27b0');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(centerX, centerY, radius+30, 0, Math.PI*2); ctx.fill();
+
+    // 刻度 + 羅馬
+    for (let i=0; i<12; i++) {
+      const a = i*30*Math.PI/180;
+      const ix = centerX + (radius-20)*Math.sin(a), iy = centerY - (radius-20)*Math.cos(a);
+      const ox = centerX + (radius+10)*Math.sin(a), oy = centerY - (radius+10)*Math.cos(a);
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(ix,iy); ctx.lineTo(ox,oy); ctx.stroke();
+
+      ctx.fillStyle = '#ff5252'; ctx.font = 'bold 26px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(roman[i], centerX + (radius-50)*Math.sin(a), centerY - (radius-50)*Math.cos(a));
+    }
+
+    // 時間
+    const now = new Date();
+    const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds(), ms = now.getMilliseconds();
+
+    // 中央時間
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 48px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`, centerX, centerY + 60);
+
+    // 角度（秒針用 ms 讓它「流暢一圈」）
+    const secA = (s + ms/1000) * 6 * Math.PI / 180;
+    const minA = (m + s/60) * 6 * Math.PI / 180;
+    const hourA = (h%12 + m/60) * 30 * Math.PI / 180;
+
+    drawHand(secA, radius*0.85, 2, '#ff5252', true);
+    drawHand(minA, radius*0.75, 5, '#2196f3');
+    drawHand(hourA, radius*0.55, 9, '#4caf50');
+
+    ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(centerX, centerY, 14, 0, Math.PI*2); ctx.fill();
+  }
+
+  // 每 1000ms 更新一次，但秒針仍「流暢一圈」
+  if (window.clockInterval) clearInterval(window.clockInterval);
+  window.clockInterval = setInterval(drawClock, 0.01);
+  drawClock();
+</script>
+
+</body>
+</html>

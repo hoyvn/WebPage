@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L 與方塊動畫</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        canvas {
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .info {
+            margin-top: 15px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // 單位設定
+    const unit = 35;
+    const L_HEIGHT = 3.5 * unit;
+    const L_WIDTH = 2 * unit;
+    const THICKNESS = 1 * unit;
+    const SQUARE_SIZE = 1.2 * unit;
+
+    // 動畫變數
+    let lY = 0;                    // 從畫面上邊開始
+    let squareX = 0;               // 從畫面左邊開始
+    const L_SPEED = 1.8;
+    const SQUARE_SPEED = 1.5;
+
+    // L 形繪製函數
+    function drawL(x, y) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y - L_HEIGHT, THICKNESS, L_HEIGHT);
+        ctx.fillRect(x, y - THICKNESS, L_WIDTH, THICKNESS);
+    }
+
+    // 小方塊繪製
+    function drawSquare(x, y) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
+    }
+
+    // 動畫主迴圈
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 更新位置
+        lY += L_SPEED;
+        squareX += SQUARE_SPEED;
+
+        // 判斷是否「兩個都完全離開畫面」
+        const lOut = lY > canvas.height;           // L 形頂部超過畫布底部
+        const squareOut = squareX > canvas.width;  // 方塊超過右邊
+
+        if (lOut && squareOut) {
+            // 兩個都消失 → 重新開始
+            lY = 0;
+            squareX = 0;
+        }
+
+        // 畫出物件（只要還看得到）
+        if (lY < canvas.height + L_HEIGHT) {
+            drawL(100, lY);
+        }
+        if (squareX < canvas.width + SQUARE_SIZE) {
+            drawSquare(squareX, 100);
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    // 啟動
+    animate();
+</script>
+
+</body>
+</html>

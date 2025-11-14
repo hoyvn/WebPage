@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L 形與彩色方塊 + 圖片角色</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: #f1f1f1;
+        }
+        canvas {
+            border: 1px solid #d3d3d3;
+            background-image: url('https://tse1.mm.bing.net/th/id/OIP.N21meVTBwQROG4151Mt62wHaE8?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            display: block;
+        }
+        .controls {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        button {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            min-width: 70px;
+        }
+
+        .dir-cross {
+            display: grid;
+            grid-template-areas:
+                ". up ."
+                "left . right"
+                ". down .";
+            gap: 10px;
+            justify-items: center;
+            align-items: center;
+            max-width: 220px;
+            margin: 0 auto;
+        }
+        .dir-cross .up    { grid-area: up; }
+        .dir-cross .left  { grid-area: left; }
+        .dir-cross .right { grid-area: right; }
+        .dir-cross .down  { grid-area: down; }
+        hr { margin: 25px 0; border: none; height: 1px; background: #ddd; }
+    </style>
+</head>
+<body onload="startGame()">
+
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <div class="controls">
+        <h3>Change the SMALL SQUARE color:</h3>
+        <div class="btn-group">
+            <button class="color-red"    onclick="changeSquareColor('red')">Red</button>
+            <button class="color-blue"   onclick="changeSquareColor('blue')">Blue</button>
+            <button class="color-green"  onclick="changeSquareColor('green')">Green</button>
+            <button class="color-yellow" onclick="changeSquareColor('yellow')">Yellow</button>
+        </div>
+        <hr>    
+
+        <h3>Move the L shape:</h3>
+        <div class="dir-cross">
+            <button class="dir-up up"    onclick="moveL('up')">UP</button>
+            <button class="dir-left left"onclick="moveL('left')">LEFT</button>
+            <button class="dir-right right" onclick="moveL('right')">RIGHT</button>
+            <button class="dir-down down"onclick="moveL('down')">DOWN</button>
+        </div>
+        <hr>
+
+        <h3>Move picture:</h3>
+        <div class="dir-cross">
+            <button class="up"    onmousedown="pressChar('up')"    onmouseup="releaseChar()" ontouchstart="pressChar('up')"    ontouchend="releaseChar()">UP</button>
+            <button class="left"  onmousedown="pressChar('left')"  onmouseup="releaseChar()" ontouchstart="pressChar('left')"  ontouchend="releaseChar()">LEFT</button>
+            <button class="right" onmousedown="pressChar('right')" onmouseup="releaseChar()" ontouchstart="pressChar('right')" ontouchend="releaseChar()">RIGHT</button>
+            <button class="down"  onmousedown="pressChar('down')"  onmouseup="releaseChar()" ontouchstart="pressChar('down')"  ontouchend="releaseChar()">DOWN</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const unit = 40;
+        const THICKNESS = 1 * unit;
+        const L_HEIGHT = 4 * unit;
+        const L_WIDTH  = 2 * unit;
+        const SQUARE_SIZE = 1 * unit;
+
+        let lX = 100, lY = 200;
+        let squareX = 50, squareY = 150;
+        let squareColor = 'yellow';
+        const MOVE_STEP = 20;
+
+        // === 完全保留你原本的 L 和方塊邏輯 ===
+        function drawL(x, y) {
+            ctx.fillStyle = '#3498db';
+            ctx.fillRect(x, y - L_HEIGHT, THICKNESS, L_HEIGHT);
+            ctx.fillRect(x, y - THICKNESS, L_WIDTH, THICKNESS);
+        }
+        function drawSquare(x, y) {
+            const colors = {red:'#e74c3c', blue:'#3498db', green:'#2ecc71', yellow:'#f1c40f'};
+            ctx.fillStyle = colors[squareColor];
+            ctx.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
+        }
+        function render() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            drawL(lX, lY);
+            drawSquare(squareX, squareY);
+            drawChar();
+        }
+
+        function changeSquareColor(c){ squareColor=c; render(); }
+
+        function moveL(dir){
+            if(dir==='up')    lY -= MOVE_STEP;
+            if(dir==='down')  lY += MOVE_STEP;
+            if(dir==='left')  lX -= MOVE_STEP;
+            if(dir==='right') lX += MOVE_STEP;
+
+            lX = Math.max(0, Math.min(canvas.width - L_WIDTH, lX));
+            lY = Math.max(L_HEIGHT, Math.min(canvas.height, lY));
+            render();
+        }
+
+        // === 圖片角色 ===
+        let char = {
+            x: 400, y: 100,
+            w: 60, h: 60,
+            dir: null,
+            normal: 'https://tse4.mm.bing.net/th/id/OIP.K6BX_zo5OKbhUY9gEUtQVgHaFj?cb=ucfimg2ucfimg=1&w=1280&h=960&rs=1&pid=ImgDetMain&o=7&rm=3',
+            angry:  'https://th.bing.com/th/id/R.a6ba5352144d756e54edb1dc9e564772?rik=MpdMXzZp%2bopWpQ&riu=http%3a%2f%2fpngimg.com%2fuploads%2fstone%2fstone_PNG13601.png&ehk=DxACjIFk3cm3eF%2blO9J0kwTfGM9q7C%2fEbgj0W1E1q3E%3d&risl=&pid=ImgRaw&r=0'
+        };
+        char.img = new Image();
+        char.img.src = char.normal;
+
+        function drawChar() {
+            ctx.drawImage(char.img, char.x, char.y, char.w, char.h);
+        }
+
+        let charInterval = null;
+
+        function pressChar(dir) {
+            if (charInterval) clearInterval(charInterval);
+            char.dir = dir;
+            char.img.src = char.angry;
+
+            charInterval = setInterval(() => {
+                if (char.dir === 'up')    char.y -= 2;
+                if (char.dir === 'down')  char.y += 2;
+                if (char.dir === 'left')  char.x -= 2;
+                if (char.dir === 'right') char.x += 2;
+
+                char.x = Math.max(0, Math.min(600 - char.w, char.x));
+                char.y = Math.max(0, Math.min(400 - char.h, char.y));
+
+                render();
+            }, 20);
+        }
+
+        function releaseChar() {
+            if (charInterval) clearInterval(charInterval);
+            char.dir = null;
+            char.img.src = char.normal;
+            render();
+        }
+
+        function startGame() {
+            render();
+        }
+    </script>
+</body>
+</html>
